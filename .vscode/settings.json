@@ -1,0 +1,9 @@
+{
+    "python.testing.pytestArgs": [
+        "-s"
+    ],
+    "python.testing.unittestEnabled": true,
+    "python.testing.pytestEnabled": true,
+    "python.formatting.provider": "autopep8",
+    "python.defaultInterpreterPath": "/Users/yk/Desktop/Project/Repository/Workspace/Python/p311ve-base/bin/python"
+}

@@ -7,6 +7,13 @@ import sys
 
 import pytest
 
+from Alpha.logging.GeneralLogger import logger
+
+
+# Configure logger
+test_alpha_fixture_logger = logger.Logger('test-alpha-fixture')
+test_alpha_fixture_logger.setLevel(logger.DEBUG)
+
 
 @pytest.mark.usefixtures('generate_number_list')
 def test_alpha_fixture_add_success(generate_number_list):

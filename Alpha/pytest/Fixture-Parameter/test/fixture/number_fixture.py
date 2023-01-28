@@ -26,6 +26,7 @@ def generate_number_list(size: int = 10,
     def _generate_number_list(size, max_size):
     
         # Generate a list of random number(s)
-        number_list = [random.randrange(max_size) for n in range(size)]
+        for n in range(size):
+            yield random.randrange(max_size)
 
-    yield _generate_number_list
+    return _generate_number_list

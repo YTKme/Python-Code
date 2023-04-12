@@ -4,7 +4,6 @@ This module implements a custom Logger.
 """
 
 import logging
-from pathlib import Path
 
 
 # Log Level

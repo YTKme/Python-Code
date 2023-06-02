@@ -4,6 +4,7 @@ This module implements a custom Logger.
 """
 
 import logging
+from logging import Formatter, LogRecord
 
 
 # Log Level
@@ -22,14 +23,45 @@ DATE_FORMAT = '%Y-%m-%d %H:%M:%S'
 
 class ColorCode:
     """Color Code for logging"""
+
+    # Reset
+    RESET = '\x1b[0m'
+    # Foreground
+    FOREGROUND_BLACK = '\x1b[30m'
+    FOREGROUND_RED = '\x1b[31m'
+    FOREGROUND_GREEN = '\x1b[32m'
+    FOREGROUND_YELLOW = '\x1b[33m'
+    FOREGROUND_BLUE = '\x1b[34m'
+    FOREGROUND_MAGENTA = '\x1b[35m'
+    FOREGROUND_CYAN = '\x1b[36m'
+    FOREGROUND_WHITE = '\x1b[37m'
+    FOREGROUND_DEFAULT = '\x1b[39m'
+    # Background
+    BACKGROUND_BLACK = '\x1b[40m'
+    BACKGROUND_RED = '\x1b[41m'
+    BACKGROUND_GREEN = '\x1b[42m'
+    BACKGROUND_YELLOW = '\x1b[43m'
+    BACKGROUND_BLUE = '\x1b[44m'
+    BACKGROUND_MAGENTA = '\x1b[45m'
+    BACKGROUND_CYAN = '\x1b[46m'
+    BACKGROUND_WHITE = '\x1b[47m'
+    BACKGROUND_DEFAULT = '\x1b[49m'
+    # Style
+    STYLE_BOLD = '\x1b[1m'
+    STYLE_DIM = '\x1b[2m'
+    STYLE_UNDERLINED = '\x1b[4m'
+    STYLE_BLINK = '\x1b[5m'
+    STYLE_REVERSE = '\x1b[7m'
+    STYLE_HIDDEN = '\x1b[8m'
+    STYLE_DEFAULT = '\x1b[22m'
     
-    NOTSET = '\x1b[0m'
-    DEBUG = '\x1b[1;36m'
-    INFO = '\x1b[38;21m'
-    WARNING = '\x1b[33;21m'
-    SUCCESS = '\x1b[1;32m'
-    ERROR = '\x1b[31;21m'
-    CRITICAL = '\x1b[31;47m'
+    NOTSET = RESET
+    DEBUG = f'{FOREGROUND_CYAN}'
+    INFO = f'{FOREGROUND_GREEN}'
+    WARNING = f'{FOREGROUND_YELLOW}'
+    SUCCESS = f'{FOREGROUND_GREEN}'
+    ERROR = f'{FOREGROUND_RED}'
+    CRITICAL = f'{FOREGROUND_RED}{BACKGROUND_WHITE}'
 
 
 class Logger(logging.Logger):
@@ -38,11 +70,13 @@ class Logger(logging.Logger):
     A Logger with predefined log format.
     """
 
-    def __init__(self,
-                 name: str,
-                 level=NOTSET) -> None:
-                # No UnionType yet
-                #  level: int | str = NOTSET) -> None:
+    def __init__(
+        self,
+        name: str,
+        level=NOTSET
+        ) -> None:
+        # No UnionType yet
+        # level: int | str = NOTSET) -> None:
         """Constructor
         
         :param name: (str) the name of the logger
@@ -59,9 +93,11 @@ class Logger(logging.Logger):
         self.addHandler(self.handler)
 
 
-    def set_formatter(self,
-                      record_format: str = RECORD_FORMAT,
-                      date_format: str = DATE_FORMAT) -> None:
+    def set_formatter(
+        self,
+        record_format: str = RECORD_FORMAT,
+        date_format: str = DATE_FORMAT
+        ) -> None:
         """Set Formatter for Logger
 
         Enable user to set a different format for the log record and the
@@ -72,8 +108,12 @@ class Logger(logging.Logger):
         """
 
         self.removeHandler(self.handler)
-        self.handler.setFormatter(LoggerFormatter(record_format=record_format,
-                                                  date_format=date_format))
+        self.handler.setFormatter(
+            LoggerFormatter(
+                record_format=record_format,
+                date_format=date_format
+                )
+            )
         self.addHandler(self.handler)
 
 
@@ -84,9 +124,11 @@ class LoggerFormatter(logging.Formatter):
     Define a custom Logger Formatter with color.
     """
 
-    def __init__(self,
-                 record_format: str = RECORD_FORMAT,
-                 date_format: str = DATE_FORMAT) -> None:
+    def __init__(
+        self,
+        record_format: str = RECORD_FORMAT,
+        date_format: str = DATE_FORMAT
+        ) -> None:
         """Constructor
 
         :param log_format: (str) the log format for the Formatter
@@ -96,21 +138,23 @@ class LoggerFormatter(logging.Formatter):
         super().__init__(fmt=record_format, datefmt=date_format)
 
         self.LEVEL_FORMAT = {
-            logging.DEBUG: f'{ColorCode.DEBUG}{record_format}{ColorCode.NOTSET}',
-            logging.INFO: f'{ColorCode.INFO}{record_format}{ColorCode.NOTSET}',
-            logging.WARNING: f'{ColorCode.WARNING}{record_format}{ColorCode.NOTSET}',
-            logging.ERROR: f'{ColorCode.ERROR}{record_format}{ColorCode.NOTSET}',
-            logging.CRITICAL: f'{ColorCode.CRITICAL}{record_format}{ColorCode.NOTSET}'
-        }
+            logging.DEBUG: f'{ColorCode.DEBUG}{record_format}{ColorCode.RESET}',
+            logging.INFO: f'{ColorCode.INFO}{record_format}{ColorCode.RESET}',
+            logging.WARNING: f'{ColorCode.WARNING}{record_format}{ColorCode.RESET}',
+            logging.ERROR: f'{ColorCode.ERROR}{record_format}{ColorCode.RESET}',
+            logging.CRITICAL: f'{ColorCode.CRITICAL}{record_format}{ColorCode.RESET}'
+            }
 
         self.date_format = date_format
 
     
-    def format(self, record):
+    def format(self, record: LogRecord) -> str:
         """Format the specified record as text (redefined)
 
         :param record: (dict) the record to format, used for string
             formatting operation
+
+        :return: (str) the formatted record
         """
         log_format = self.LEVEL_FORMAT.get(record.levelno)
         formatter = logging.Formatter(fmt=log_format, datefmt=self.date_format)

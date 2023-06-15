@@ -4,7 +4,8 @@ This module implements a custom Logger.
 """
 
 import logging
-from logging import Formatter, LogRecord
+from logging import LogRecord
+import sys
 
 
 # Log Level
@@ -64,60 +65,6 @@ class ColorCode:
     CRITICAL = f'{FOREGROUND_RED}{BACKGROUND_WHITE}'
 
 
-class Logger(logging.Logger):
-    """Logger class for AutoTools
-
-    A Logger with predefined log format.
-    """
-
-    def __init__(
-        self,
-        name: str,
-        level=NOTSET
-        ) -> None:
-        # No UnionType yet
-        # level: int | str = NOTSET) -> None:
-        """Constructor
-        
-        :param name: (str) the name of the logger
-        :param level: (int) or (str) initialize the level of the logger
-        """
-
-        # Call super class
-        super(Logger, self).__init__(name=name, level=level)
-
-        # Initialize handler
-        self.handler = logging.StreamHandler()
-        self.handler.setLevel(level)
-        self.handler.setFormatter(LoggerFormatter())
-        self.addHandler(self.handler)
-
-
-    def set_formatter(
-        self,
-        record_format: str = RECORD_FORMAT,
-        date_format: str = DATE_FORMAT
-        ) -> None:
-        """Set Formatter for Logger
-
-        Enable user to set a different format for the log record and the
-        log date.
-
-        :param record_format: (str) the new format for the log record
-        :param date_format: (str) the new format for the log date
-        """
-
-        self.removeHandler(self.handler)
-        self.handler.setFormatter(
-            LoggerFormatter(
-                record_format=record_format,
-                date_format=date_format
-                )
-            )
-        self.addHandler(self.handler)
-
-
-
 class LoggerFormatter(logging.Formatter):
     """Formatter for the Logger
 
@@ -160,3 +107,90 @@ class LoggerFormatter(logging.Formatter):
         formatter = logging.Formatter(fmt=log_format, datefmt=self.date_format)
 
         return formatter.format(record)
+
+
+class Logger(logging.Logger):
+    """Logger class for AutoTools
+
+    A Logger with predefined log format.
+    """
+
+    def __init__(
+        self,
+        name: str,
+        level=NOTSET
+        ) -> None:
+        # No UnionType yet
+        # level: int | str = NOTSET) -> None:
+        """Constructor
+        
+        :param name: (str) the name of the logger
+        :param level: (int) or (str) initialize the level of the logger
+        """
+
+        # Call super class
+        super(Logger, self).__init__(name=name, level=level)
+
+        # Initialize handler
+        self._initialize_handler()
+
+
+    def _initialize_handler(self) -> None:
+        """Initialize Handler for Logger
+        
+        Initialize the Handler for both `stdout` and `stderr`. By
+        default, `DEBUG`, `INFO`, and `WARNING` will be logged to
+        `stdout`, while `ERROR` and `CRITICAL` will be logged to
+        `stderr`.
+        """
+
+        # Initialize `stdout` handler
+        self.stdout_handler = logging.StreamHandler(sys.stdout)
+        self.stdout_handler.set_name('stdout-handler')
+        self.stdout_handler.setLevel(DEBUG)
+        self.stdout_handler.addFilter(lambda record: record.levelno < ERROR)
+        self.stdout_handler.setFormatter(LoggerFormatter())
+        self.addHandler(self.stdout_handler)
+
+        # Initialize `stderr` handler
+        self.stderr_handler = logging.StreamHandler()
+        self.stderr_handler.set_name('stderr-handler')
+        self.stderr_handler.setLevel(ERROR)
+        self.stderr_handler.addFilter(lambda record: record.levelno >= ERROR)
+        self.stderr_handler.setFormatter(LoggerFormatter())
+        self.addHandler(self.stderr_handler)
+
+
+    def set_formatter(
+        self,
+        record_format: str = RECORD_FORMAT,
+        date_format: str = DATE_FORMAT
+        ) -> None:
+        """Set Formatter for Logger
+
+        Enable user to set a different format for the log record and the
+        log date.
+
+        :param record_format: (str) the new format for the log record
+        :param date_format: (str) the new format for the log date
+        """
+
+        self.handlers.clear()
+
+        # Set formatter for `stdout` handler
+        self.stdout_handler.setFormatter(
+            LoggerFormatter(
+                record_format=record_format,
+                date_format=date_format
+                )
+            )
+        self.addHandler(self.stdout_handler)
+
+        # Set formatter for `stderr` handler
+        self.stderr_handler.setFormatter(
+            LoggerFormatter(
+                record_format=record_format,
+                date_format=date_format
+                )
+            )
+        self.addHandler(self.stderr_handler)

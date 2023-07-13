@@ -1,0 +1,38 @@
+[build-system]
+requires = [
+    "setuptools",
+    "wheel"
+]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pythoncode"
+authors = [
+    {name = "Yan Kuang"},
+]
+description = "Python Code"
+requires-python = ">=3.7"
+keywords = [ "python", "code" ]
+dependencies = [
+    "pytest"
+]
+dynamic = [
+    "version",
+    "readme"
+]
+
+[project.urls]
+"Homepage" = "https://github.com/YTKme/Python-Code"
+"Bug Tracker" = "https://github.com/YTKme/Python-Code/issues"
+
+[tool.distutils.bdist_wheel]
+universal = true
+
+[tool.setuptools]
+packages = [
+    "Core"
+]
+
+[tool.setuptools.dynamic]
+version = {file = "VERSION"}
+readme = {file = ["README.md"]}

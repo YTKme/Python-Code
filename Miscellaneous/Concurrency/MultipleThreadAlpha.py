@@ -1,6 +1,6 @@
 """
-Multiple Thread Base
-~~~~~~~~~~~~~~~~~~~~
+Multiple Thread Alpha
+~~~~~~~~~~~~~~~~~~~~~
 """
 
 import threading

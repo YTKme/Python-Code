@@ -10,7 +10,9 @@
         "-s",
         "-v"
     ],
-    "python.testing.unittestEnabled": true,
+    "python.testing.unittestEnabled": false,
     "python.testing.pytestEnabled": true,
-    "python.formatting.provider": "autopep8"
+    "[python]": {
+        "editor.defaultFormatter": "ms-python.autopep8"
+    }
 }

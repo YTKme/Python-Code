@@ -11,7 +11,7 @@ authors = [
     {name = "Yan Kuang"},
 ]
 description = "Python Code"
-requires-python = ">=3.7"
+requires-python = ">=3.9"
 keywords = [ "python", "code" ]
 dependencies = [
     "pytest"
@@ -30,7 +30,8 @@ universal = true
 
 [tool.setuptools]
 packages = [
-    "Core"
+    "Alpha",
+    "Core",
 ]
 
 [tool.setuptools.dynamic]

@@ -3,8 +3,10 @@
         "-v",
         "-s",
         "Test",
+        "test",
         "-p",
-        "*Test*.py"
+        "*Test*.py",
+        "*test*.py"
     ],
     "python.testing.pytestArgs": [
         "-s",

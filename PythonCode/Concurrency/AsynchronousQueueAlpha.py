@@ -1,9 +1,9 @@
 """
-Asynchronous Queue
-~~~~~~~~~~~~~~~~~~
+Asynchronous Queue Alpha
+~~~~~~~~~~~~~~~~~~~~~~~~
 
-The AsynchronousQueue module provide example(s) for the `asyncio.Queue`
-module.
+The AsynchronousQueueAlpha module provide example(s) for the
+`asyncio.Queue` module.
 """
 
 import asyncio

@@ -1,15 +1,15 @@
 """
-Test Asynchronous Queue Beta
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Test Asynchronous Queue Gamma
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 """
 
 import pytest
 
-from PythonCode.Asynchronous.AsynchronousQueueBeta import AsynchronousQueueBeta
+from PythonCode.Asynchronous.AsynchronousQueueGamma import AsynchronousQueueGamma
 
 
-class TestAsynchronousQueueBeta():
-    """Test Asynchronous Queue Beta"""
+class TestAsynchronousQueueGamma():
+    """Test Asynchronous Queue Gamma"""
 
     @pytest.mark.asyncio
     @pytest.mark.parametrize(
@@ -35,8 +35,8 @@ class TestAsynchronousQueueBeta():
         source_list: list[str],
     ):
         """Test Fetch Recursive"""
-        beta = AsynchronousQueueBeta()
+        gamma = AsynchronousQueueGamma()
 
-        await beta.fetch_recursive(
+        await gamma.fetch_recursive(
             source_list=source_list,
         )

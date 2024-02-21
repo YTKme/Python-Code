@@ -1,8 +1,8 @@
 """
-Asynchronous Queue Beta
-~~~~~~~~~~~~~~~~~~~~~~~
+Asynchronous Queue Gamma
+~~~~~~~~~~~~~~~~~~~~~~~~
 
-The AsynchronousQueueBeta module provide example(s) for the
+The AsynchronousQueueGamma module provide example(s) for the
 `asyncio.Queue` module with class.
 """
 
@@ -13,8 +13,8 @@ from asyncio import (
 )
 
 
-class AsynchronousQueueBeta:
-    """Asynchronous Queue Beta Class"""
+class AsynchronousQueueGamma:
+    """Asynchronous Queue Gamma Class"""
 
     def __init__(self, *args, **kwargs):
         """Constructor"""

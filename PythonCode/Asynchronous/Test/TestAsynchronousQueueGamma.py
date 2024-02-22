@@ -15,18 +15,18 @@ class TestAsynchronousQueueGamma():
     @pytest.mark.parametrize(
         'source_list', [
             [
-                'https://httpbin.org/anything/1',
-                'https://httpbin.org/anything/2',
-                'https://httpbin.org/anything/3',
-                'https://httpbin.org/anything/4',
-                'https://httpbin.org/anything/5',
-                'https://httpbin.org/anything/6',
-                'https://httpbin.org/anything/7',
-                'https://httpbin.org/anything/8',
-                'https://httpbin.org/anything/9',
-                'https://httpbin.org/anything/10',
-                'https://httpbin.org/anything/11',
-                'https://httpbin.org/anything/12',
+                'https://httpbin.org/anything/Gamma/1',
+                'https://httpbin.org/anything/Gamma/2',
+                'https://httpbin.org/anything/Gamma/3',
+                'https://httpbin.org/anything/Gamma/4',
+                'https://httpbin.org/anything/Gamma/5',
+                'https://httpbin.org/anything/Gamma/6',
+                'https://httpbin.org/anything/Gamma/7',
+                'https://httpbin.org/anything/Gamma/8',
+                'https://httpbin.org/anything/Gamma/9',
+                'https://httpbin.org/anything/Gamma/10',
+                'https://httpbin.org/anything/Gamma/11',
+                'https://httpbin.org/anything/Gamma/12',
             ],
         ]
     )

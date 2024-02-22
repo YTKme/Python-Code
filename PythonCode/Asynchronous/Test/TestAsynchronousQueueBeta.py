@@ -15,18 +15,18 @@ class TestAsynchronousQueueBeta():
     @pytest.mark.parametrize(
         'source_list', [
             [
-                'https://httpbin.org/anything/1',
-                'https://httpbin.org/anything/2',
-                'https://httpbin.org/anything/3',
-                'https://httpbin.org/anything/4',
-                'https://httpbin.org/anything/5',
-                'https://httpbin.org/anything/6',
-                'https://httpbin.org/anything/7',
-                'https://httpbin.org/anything/8',
-                'https://httpbin.org/anything/9',
-                'https://httpbin.org/anything/10',
-                'https://httpbin.org/anything/11',
-                'https://httpbin.org/anything/12',
+                'https://httpbin.org/anything/Beta/1',
+                'https://httpbin.org/anything/Beta/2',
+                'https://httpbin.org/anything/Beta/3',
+                'https://httpbin.org/anything/Beta/4',
+                'https://httpbin.org/anything/Beta/5',
+                'https://httpbin.org/anything/Beta/6',
+                'https://httpbin.org/anything/Beta/7',
+                'https://httpbin.org/anything/Beta/8',
+                'https://httpbin.org/anything/Beta/9',
+                'https://httpbin.org/anything/Beta/10',
+                'https://httpbin.org/anything/Beta/11',
+                'https://httpbin.org/anything/Beta/12',
             ],
         ]
     )

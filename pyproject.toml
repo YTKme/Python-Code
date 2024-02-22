@@ -30,8 +30,7 @@ universal = true
 
 [tool.setuptools]
 packages = [
-    "Alpha",
-    "Core",
+    "PythonCode",
 ]
 
 [tool.setuptools.dynamic]

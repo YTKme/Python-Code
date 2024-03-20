@@ -8,7 +8,7 @@ import pytest
 from PythonCode.Asynchronous.AsynchronousQueueBeta import AsynchronousQueueBeta
 
 
-class TestAsynchronousQueueBeta():
+class TestAsynchronousQueueBeta:
     """Test Asynchronous Queue Beta"""
 
     @pytest.mark.asyncio

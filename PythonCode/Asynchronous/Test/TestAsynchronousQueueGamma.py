@@ -8,7 +8,7 @@ import pytest
 from PythonCode.Asynchronous.AsynchronousQueueGamma import AsynchronousQueueGamma
 
 
-class TestAsynchronousQueueGamma():
+class TestAsynchronousQueueGamma:
     """Test Asynchronous Queue Gamma"""
 
     @pytest.mark.asyncio

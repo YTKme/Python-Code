@@ -1,26 +1,39 @@
-"""Configure Test"""
+"""
+Configure Test
+~~~~~~~~~~~~~~
+
+The Configure Test (`conftest`) module.
+"""
 
 from typing import Union
 
-from pytest import Config
-from pytest import ExitCode
-from pytest import Session
+from pytest import (
+    Config,
+    ExitCode,
+    Parser,
+    PytestPluginManager,
+    Session,
+)
+import tealogger
 
-from Core.logging.Logging import logger
 
-# Configure Logger
-conftest_logger = logger.Logger('conftest-logger')
-conftest_logger.setLevel(logger.DEBUG)
+tealogger.set_level(tealogger.DEBUG)
 
 
-def pytest_addoption(parser):
+def pytest_addoption(parser: Parser, pluginmanager: PytestPluginManager):
     """Register Command Line Option(s)
+
+    Register argparse style options and ini style config values, called
+    once at the beginning of a test run.
 
     :param parser: The parser for command line option(s)
     :type parser: pytest.Parser
+    :param pluginmanager: The pytest plugin manager
+    :type pluginmanager: pytest.PytestPluginManager
     """
-    conftest_logger.info('pytest Add Option')
-    conftest_logger.debug(f'Parser: {parser}')
+    tealogger.info('pytest Add Option')
+    tealogger.debug(f'Parser: {parser}')
+    tealogger.debug(f'Plugin Manager: {pluginmanager}')
 
 
 def pytest_configure(config: Config) -> None:
@@ -31,8 +44,8 @@ def pytest_configure(config: Config) -> None:
     :param config: The pytest config object
     :type config: pytest.Config
     """
-    conftest_logger.info('pytest Configure')
-    conftest_logger.debug(f'Config: {config}')
+    tealogger.info('pytest Configure')
+    tealogger.debug(f'Config: {config}')
 
 
 def pytest_sessionstart(session: Session) -> None:
@@ -44,21 +57,24 @@ def pytest_sessionstart(session: Session) -> None:
     :param session: The pytest session object
     :type session: pytest.Session
     """
-    conftest_logger.info('pytest Session Start')
-    conftest_logger.debug(f'Session: {session}')
+    tealogger.info('pytest Session Start')
+    tealogger.debug(f'Session: {session}')
 
 
 def pytest_sessionfinish(session: Session, exitstatus: Union[int, ExitCode]):
     """Finish Session
+
+    Called after whole test run finished, right before returning the
+    exit status to the system.
 
     :param session: The pytest session object
     :type session: pytest.Session
     :param exitstatus: The status which pytest will return to the system
     :type exitstatus: Union[int, pytest.ExitCode]
     """
-    conftest_logger.info('pytest Session Finish')
-    conftest_logger.debug(f'Session: {session}')
-    conftest_logger.debug(f'Exit Status: {exitstatus}')
+    tealogger.info('pytest Session Finish')
+    tealogger.debug(f'Session: {session}')
+    tealogger.debug(f'Exit Status: {exitstatus}')
 
 
 def pytest_unconfigure(config: Config):
@@ -69,5 +85,5 @@ def pytest_unconfigure(config: Config):
     :param config: The pytest config object
     :type config: pytest.Config
     """
-    conftest_logger.info('pytest Unconfigure')
-    conftest_logger.debug(f'Config: {config}')
+    tealogger.info('pytest Unconfigure')
+    tealogger.debug(f'Config: {config}')

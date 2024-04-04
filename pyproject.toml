@@ -15,6 +15,7 @@ requires-python = ">=3.11"
 keywords = [ "python", "code" ]
 dependencies = [
     "pytest",
+    "rich",
     "tealogger"
 ]
 dynamic = [

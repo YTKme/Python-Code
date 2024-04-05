@@ -1,8 +1,8 @@
 """
-Asynchronous Queue Default
-~~~~~~~~~~~~~~~~~~~~~~~~~~
+Asynchronous Default
+~~~~~~~~~~~~~~~~~~~~
 
-The AsynchronousQueueDefault module is the default example for the
+The AsynchronousDefault module is the default example for the
 `` module.
 
 .. _asyncio.Queue Example: https://docs.python.org/3/library/asyncio-queue.html#examples

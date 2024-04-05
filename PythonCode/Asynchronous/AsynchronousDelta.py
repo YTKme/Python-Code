@@ -2,10 +2,9 @@
 Asynchronous Queue Delta
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
-The AsynchronousQueueDelta module provide example(s) for the
-`asyncio.Queue` module with class. It uses `async with TaskGroup()` for
-task creation, along with `asyncio.BoundedSemaphore` as limiter for
-concurrent task(s).
+The AsynchronousDelta module provide example(s) for the `asyncio.Queue`
+module with class. It uses `async with TaskGroup()` for task creation,
+along with `asyncio.BoundedSemaphore` as limiter for concurrent task(s).
 """
 
 import asyncio
@@ -17,8 +16,8 @@ import tealogger
 tealogger.set_level(tealogger.DEBUG)
 
 
-class AsynchronousQueueDelta:
-    """Asynchronous Queue Delta Class"""
+class AsynchronousDelta:
+    """Asynchronous Delta Class"""
 
     def __init__(self, *args, **kwargs):
         """Constructor"""

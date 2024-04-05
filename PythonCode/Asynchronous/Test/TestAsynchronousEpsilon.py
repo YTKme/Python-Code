@@ -1,15 +1,15 @@
 """
-Test Asynchronous Queue Epsilon
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Test Asynchronous Epsilon
+~~~~~~~~~~~~~~~~~~~~~~~~~
 """
 
 import pytest
 
-from PythonCode.Asynchronous.AsynchronousQueueEpsilon import AsynchronousQueueEpsilon
+from PythonCode.Asynchronous.AsynchronousEpsilon import AsynchronousEpsilon
 
 
-class TestAsynchronousQueueEpsilon:
-    """Test Asynchronous Queue Epsilon"""
+class TestAsynchronousEpsilon:
+    """Test Asynchronous Epsilon"""
 
     @pytest.mark.asyncio
     @pytest.mark.parametrize(
@@ -35,7 +35,7 @@ class TestAsynchronousQueueEpsilon:
         source_list: list[str],
     ):
         """Test Fetch Recursive"""
-        epsilon = AsynchronousQueueEpsilon()
+        epsilon = AsynchronousEpsilon()
 
         await epsilon.fetch_recursive(
             source_list=source_list,

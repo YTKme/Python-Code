@@ -1,22 +1,20 @@
 """
-Asynchronous Queue Epsilon
-~~~~~~~~~~~~~~~~~~~~~~~~
+Asynchronous Gamma
+~~~~~~~~~~~~~~~~~~
 
-The AsynchronousQueueEpsilon module provide example(s) for the
-`asyncio.Queue` module with class.
+The AsynchronousGamma module provide example(s) for the `asyncio.Queue`
+module with class.
 """
 
 import asyncio
-from asyncio import BoundedSemaphore, Queue, Semaphore, TaskGroup
-
-import tealogger
-
-
-tealogger.set_level(tealogger.DEBUG)
+from asyncio import (
+    Queue,
+    TaskGroup
+)
 
 
-class AsynchronousQueueEpsilon:
-    """Asynchronous Queue Epsilon Class"""
+class AsynchronousGamma:
+    """Asynchronous Gamma Class"""
 
     def __init__(self, *args, **kwargs):
         """Constructor"""
@@ -41,10 +39,8 @@ class AsynchronousQueueEpsilon:
         """
         print('Fetch Recursive')
 
-        limiter = BoundedSemaphore(2)
-
-        # Create a `source_queue` to store the `source_list` to fetch
-        source_queue = Queue()
+        # Create a `query_queue` to store the `source_list` to fetch
+        query_queue = Queue()
         # Create a `result_queue` to store the result(s) of the fetch
         result_queue = Queue()
 
@@ -55,20 +51,19 @@ class AsynchronousQueueEpsilon:
                 group.create_task(
                     self.fetch_query(
                         name=f'Worker-{index + 1}',
-                        source_queue=source_queue,
+                        query_queue=query_queue,
                         result_queue=result_queue,
-                        limiter=limiter,
                     )
                 ) for index in range(maximum_task)
             ]
 
-            # Enqueue the `source` to the `source_queue`
+            # Enqueue the `source` to the `query_queue`
             for source in source_list:
-                await source_queue.put(source)
+                await query_queue.put(source)
 
             # Enqueue a `None` signal for worker(s) to exit
             for _ in range(maximum_task):
-                await source_queue.put(None)
+                await query_queue.put(None)
 
         # Consolidate the result(s) from the `result_queue`
         result_list = []
@@ -78,40 +73,35 @@ class AsynchronousQueueEpsilon:
 
         # Display the result(s)
         for result in result_list:
-            tealogger.debug(f'Result: {result}')
+            print(f'Result: {result}')
 
     async def fetch_query(
         self,
         name: str,
-        source_queue: Queue,
+        query_queue: Queue,
         result_queue: Queue,
-        limiter: BoundedSemaphore,
     ):
         """Fetch Query
 
         :param name: The `name` of the worker
         :type name: str
-        :param source_queue: The `source_queue` to fetch
-        :type source_queue: Queue
+        :param query_queue: The `query_queue` to fetch
+        :type query_queue: Queue
         :param result_queue: The `result_queue` to store the result
         :type result_queue: Queue
         """
+        while True:
+            query = await query_queue.get()
 
-        async with limiter:
-            while True:
-                source = await source_queue.get()
+            # The signal to exit
+            if query is None:
+                break
 
-                # The signal to exit
-                if source is None:
-                    break
+            print(f'{name} Fetch Query: {query}')
 
-                tealogger.debug(f'{name} Source Query: {source}')
+            # Simulate the work
+            await asyncio.sleep(1)
 
-                # Simulate the work
-                await asyncio.sleep(3)
-
-                # Store the result
-                result = f'{name} Result: {source}'
-                await result_queue.put(result)
-
-                tealogger.info(f'Completed: {name}: {source}')
+            # Store the result
+            result = f'{name} Result: {query}'
+            await result_queue.put(result)

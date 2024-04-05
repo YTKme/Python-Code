@@ -5,11 +5,11 @@ Test Asynchronous Queue Delta
 
 import pytest
 
-from PythonCode.Asynchronous.AsynchronousQueueDelta import AsynchronousQueueDelta
+from PythonCode.Asynchronous.AsynchronousDelta import AsynchronousDelta
 
 
-class TestAsynchronousQueueDelta:
-    """Test Asynchronous Queue Delta"""
+class TestAsynchronousDelta:
+    """Test Asynchronous Delta"""
 
     @pytest.mark.asyncio
     @pytest.mark.parametrize(
@@ -35,7 +35,7 @@ class TestAsynchronousQueueDelta:
         source_list: list[str],
     ):
         """Test Fetch Recursive"""
-        delta = AsynchronousQueueDelta()
+        delta = AsynchronousDelta()
 
         await delta.fetch_recursive(
             source_list=source_list,

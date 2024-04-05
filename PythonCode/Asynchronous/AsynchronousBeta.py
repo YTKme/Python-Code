@@ -1,9 +1,9 @@
 """
-Asynchronous Queue Beta
-~~~~~~~~~~~~~~~~~~~~~~~
+Asynchronous Beta
+~~~~~~~~~~~~~~~~~
 
-The AsynchronousQueueBeta module provide example(s) for the
-`asyncio.Queue` module with class.
+The AsynchronousBeta module provide example(s) for the `asyncio.Queue`
+module with class.
 """
 
 import asyncio
@@ -13,7 +13,7 @@ from asyncio import (
 )
 
 
-class AsynchronousQueueBeta:
+class AsynchronousBeta:
     """Asynchronous Queue Beta Class"""
 
     def __init__(self, *args, **kwargs):

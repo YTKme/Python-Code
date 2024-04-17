@@ -3,7 +3,7 @@
 This module test functionality for the logger.
 """
 
-from Core.logging.Logging import logger
+from Core.Log import logger
 
 
 def test_initialize():

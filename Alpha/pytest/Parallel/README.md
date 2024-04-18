@@ -1,7 +1,0 @@
-# pytest Parallel
-
-
-
-## Reference
-
-### General

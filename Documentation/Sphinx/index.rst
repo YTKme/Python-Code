@@ -10,6 +10,8 @@ Python Code Documentation
    :maxdepth: 2
    :caption: Contents:
 
+   modules
+
 
 
 Index and Table

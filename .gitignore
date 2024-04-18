@@ -4,6 +4,9 @@
 
 .ruff_cache
 
+# Sphinx
+Documentation/Sphinx/_build/
+
 ##########
 # Python #
 ##########

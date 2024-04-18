@@ -5,11 +5,14 @@ Configure Test
 The Configure Test (`conftest`) module.
 """
 
+import json
+from pathlib import Path
 from typing import Union
 
 from pytest import (
     Config,
     ExitCode,
+    Metafunc,
     Parser,
     PytestPluginManager,
     Session,
@@ -18,6 +21,12 @@ import tealogger
 
 
 tealogger.set_level(tealogger.DEBUG)
+
+
+"""
+Initialization Hook
+~~~~~~~~~~~~~~~~~~~
+"""
 
 
 def pytest_addoption(parser: Parser, pluginmanager: PytestPluginManager):
@@ -87,3 +96,30 @@ def pytest_unconfigure(config: Config):
     """
     tealogger.info('pytest Unconfigure')
     tealogger.debug(f'Config: {config}')
+
+
+"""
+Collection Hook
+~~~~~~~~~~~~~~~
+"""
+
+
+def pytest_generate_tests(metafunc: Metafunc):
+    """Generate Test Hook
+
+    Generate (multiple) parametrized calls to a test function.
+    Dynamically parametrize test(s) using test data from a JSON
+    (JavaScript Object Notation) file. The data will align with the
+    class and function name of the test(s).
+
+    :param metafunc: Objects passed to the pytest_generate_tests hook
+    :type metafunc: pytest.Metafunc
+    """
+    tealogger.info('pytest Generate Test')
+
+    # Load the test data
+    with open(Path(__file__).parent / 'DataAlpha.json', 'r', encoding='utf-8') as file:
+        data = json.load(file)
+
+    tealogger.debug(f'Meta Function: {metafunc}')
+    tealogger.debug(f'Module Name: {metafunc.module.__name__}')

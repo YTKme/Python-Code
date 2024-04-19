@@ -16,6 +16,8 @@ async def worker(
 ) -> None:
     """Worker
 
+    The worker task to execute the work item(s) from the queue.
+
     :param name: The name for the worker
     :type name: str
     :param queue: The input queue to execute

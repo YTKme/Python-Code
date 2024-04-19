@@ -3,9 +3,9 @@ Asynchronous Default
 ~~~~~~~~~~~~~~~~~~~~
 
 The AsynchronousDefault module is the default example for the
-`` module.
+`asyncio.Queue` module.
 
-.. _asyncio.Queue Example: https://docs.python.org/3/library/asyncio-queue.html#examples
+`asyncio.Queue Example <https://docs.python.org/3/library/asyncio-queue.html#examples>`_
 """
 
 import asyncio

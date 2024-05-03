@@ -44,13 +44,24 @@ def fetch_website_thread():
 
     # Loop through the WEBSITE_LIST
     for index, website in enumerate(WEBSITE_LIST):
+        thread_name = f'W-{index}'
         # Create thread
+        print(f'Create Thread: {thread_name}')
         thread = threading.Thread(
-            target=fetch_worker, args=(f'W-{index}', website,))
+            target=fetch_worker,
+            args=(thread_name, website,
+        ))
         # Add thread to the thread_list
         thread_list.append(thread)
         # Start thread
+        print(f'Start Thread: {thread_name}')
         thread.start()
+
+    # Loop through the thread_list
+    for thread in thread_list:
+        # Join thread
+        print(f'Join Thread: {thread.name}')
+        thread.join()
 
 
 def fetch_worker(name: str, website: str):

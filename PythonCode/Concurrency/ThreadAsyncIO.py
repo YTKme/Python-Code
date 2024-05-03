@@ -7,6 +7,7 @@ The ThreadAsyncIO module provide example(s) and comparison(s) for the
 """
 
 import requests
+import threading
 import timeit
 
 
@@ -38,18 +39,31 @@ WEBSITE_LIST = [
 def fetch_website_thread():
     """Fetch Website Thread"""
 
+    # Create a list store the thread(s)
+    thread_list = []
+
+    # Loop through the WEBSITE_LIST
+    for index, website in enumerate(WEBSITE_LIST):
+        # Create thread
+        thread = threading.Thread(
+            target=fetch_worker, args=(f'W-{index}', website,))
+        # Add thread to the thread_list
+        thread_list.append(thread)
+        # Start thread
+        thread.start()
 
 
-
-def fetch_worker(website: str):
+def fetch_worker(name: str, website: str):
     """Fetch Worker
 
+    :param name: The name for the worker
+    :type name: str
     :param website: The URL (Uniform Resource Locator) for the website
     :type website: str
     """
 
-    print(f'Fetch Worker Website: {website}')
+    print(f'Fetch Worker Website {name}: {website}')
     start = timeit.default_timer()
     response = requests.get(website)
     stop = timeit.default_timer()
-    print(f'Fetch Worker Time: {stop - start:.2f}')
+    print(f'Fetch Worker Time {name}: {stop - start:.2f}')

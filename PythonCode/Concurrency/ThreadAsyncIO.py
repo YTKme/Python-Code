@@ -6,6 +6,8 @@ The ThreadAsyncIO module provide example(s) and comparison(s) for the
 `threading` and the `asyncio` module.
 """
 
+from aiohttp import ClientSession
+import asyncio
 import requests
 import threading
 import timeit
@@ -36,6 +38,45 @@ WEBSITE_LIST = [
 ]
 
 
+async def fetch_website_async():
+    """Fetch Website Async"""
+
+    # Create a list store the task(s)
+    task_list = []
+
+    async with ClientSession() as session:
+        # Loop through the WEBSITE_LIST
+        for index, website in enumerate(WEBSITE_LIST):
+            print(f'Create Task: A-{index}')
+            task_list.append(
+                fetch_worker_async(
+                    name=f'A-{index}',
+                    website=website,
+                    session=session
+                )
+            )
+
+        print(f'Gather Task(s): {len(task_list)}')
+        await asyncio.gather(*task_list)
+
+
+async def fetch_worker_async(
+    name: str,
+    website: str,
+    session: ClientSession
+):
+    """Fetch Worker Async
+
+    :param name: The name for the worker
+    :type name: str
+    :param website: The URL (Uniform Resource Locator) for the website
+    :type website: str
+    """
+
+    async with session.get(website) as response:
+        r = await response.text()
+
+
 def fetch_website_thread():
     """Fetch Website Thread"""
 
@@ -44,11 +85,11 @@ def fetch_website_thread():
 
     # Loop through the WEBSITE_LIST
     for index, website in enumerate(WEBSITE_LIST):
-        thread_name = f'W-{index}'
+        thread_name = f'T-{index}'
         # Create thread
         print(f'Create Thread: {thread_name}')
         thread = threading.Thread(
-            target=fetch_worker,
+            target=fetch_worker_thread,
             args=(thread_name, website,
         ))
         # Add thread to the thread_list
@@ -64,8 +105,8 @@ def fetch_website_thread():
         thread.join()
 
 
-def fetch_worker(name: str, website: str):
-    """Fetch Worker
+def fetch_worker_thread(name: str, website: str):
+    """Fetch Worker Thread
 
     :param name: The name for the worker
     :type name: str
@@ -73,8 +114,8 @@ def fetch_worker(name: str, website: str):
     :type website: str
     """
 
-    print(f'Fetch Worker Website {name}: {website}')
-    start = timeit.default_timer()
-    response = requests.get(website)
-    stop = timeit.default_timer()
-    print(f'Fetch Worker Time {name}: {stop - start:.2f}')
+    # print(f'Fetch Worker Website {name}: {website}')
+    # start = timeit.default_timer()
+    response = requests.get(website).text
+    # stop = timeit.default_timer()
+    # print(f'Fetch Worker Time {name}: {stop - start:.2f}')

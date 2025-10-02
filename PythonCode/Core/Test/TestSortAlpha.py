@@ -8,6 +8,8 @@ import pytest
 
 from PythonCode.Core.SortAlpha import sort_dictionary_by_key
 from PythonCode.Core.SortAlpha import sort_dictionary_by_value
+from PythonCode.Core.SortAlpha import sort_list_dictionary_by_key
+from PythonCode.Core.SortAlpha import sort_list_dictionary_by_value
 
 
 class TestSortAlpha:
@@ -37,7 +39,6 @@ class TestSortAlpha:
 
         assert data == expected
 
-
     @pytest.mark.parametrize("data, reverse, expected", [
         (
             {"Toyota": 3, "Honda": 1, "Ford": 4, "BMW": 2},
@@ -59,5 +60,54 @@ class TestSortAlpha:
         """Test Sort Dictionary By Value"""
 
         data = sort_dictionary_by_value(data, reverse=reverse)
+
+        assert data == expected
+
+    @pytest.mark.parametrize("data, reverse, expected", [
+        (
+            [
+                {"beta": 50},
+                {"alpha": 70},
+                {"delta": 40},
+                {"gamma": 10},
+            ],
+            False,
+            [
+                {"alpha": 70},
+                {"beta": 50},
+                {"delta": 40},
+                {"gamma": 10},
+            ],
+        ),
+    ])
+    def test_sort_list_dictionary_by_key(self, data, reverse, expected):
+        """Test Sort List Dictionary By Key"""
+
+        data = sort_list_dictionary_by_key(data, reverse=reverse)
+
+        assert data == expected
+
+    @pytest.mark.parametrize("data, key, reverse, expected", [
+        (
+            [
+                {"name": "David", "salary": 70000},
+                {"name": "Alice", "salary": 50000},
+                {"name": "Bob", "salary": 60000},
+                {"name": "Charlie", "salary": 40000},
+            ],
+            "salary",
+            False,
+            [
+                {"name": "Charlie", "salary": 40000},
+                {"name": "Alice", "salary": 50000},
+                {"name": "Bob", "salary": 60000},
+                {"name": "David", "salary": 70000},
+            ],
+        ),
+    ])
+    def test_sort_list_dictionary_by_value(self, data, key, reverse, expected):
+        """Test Sort List Dictionary By Value"""
+
+        data = sort_list_dictionary_by_value(data, key=key, reverse=reverse)
 
         assert data == expected

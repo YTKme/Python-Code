@@ -23,6 +23,9 @@ import tealogger
 tealogger.set_level(tealogger.DEBUG)
 
 
+tealogger.info("Core Test Configuration")
+
+
 """
 Initialization Hook
 ~~~~~~~~~~~~~~~~~~~
@@ -40,9 +43,9 @@ def pytest_addoption(parser: Parser, pluginmanager: PytestPluginManager):
     :param pluginmanager: The pytest plugin manager
     :type pluginmanager: pytest.PytestPluginManager
     """
-    tealogger.info('pytest Add Option')
-    tealogger.debug(f'Parser: {parser}')
-    tealogger.debug(f'Plugin Manager: {pluginmanager}')
+    tealogger.info("pytest Add Option")
+    tealogger.debug(f"Parser: {parser}")
+    tealogger.debug(f"Plugin Manager: {pluginmanager}")
 
 
 def pytest_configure(config: Config) -> None:
@@ -53,8 +56,8 @@ def pytest_configure(config: Config) -> None:
     :param config: The pytest config object
     :type config: pytest.Config
     """
-    tealogger.info('pytest Configure')
-    tealogger.debug(f'Config: {config}')
+    tealogger.info("pytest Configure")
+    tealogger.debug(f"Config: {config}")
 
 
 def pytest_sessionstart(session: Session) -> None:
@@ -66,8 +69,8 @@ def pytest_sessionstart(session: Session) -> None:
     :param session: The pytest session object
     :type session: pytest.Session
     """
-    tealogger.info('pytest Session Start')
-    tealogger.debug(f'Session: {session}')
+    tealogger.info("pytest Session Start")
+    tealogger.debug(f"Session: {session}")
 
 
 def pytest_sessionfinish(session: Session, exitstatus: Union[int, ExitCode]):
@@ -81,9 +84,9 @@ def pytest_sessionfinish(session: Session, exitstatus: Union[int, ExitCode]):
     :param exitstatus: The status which pytest will return to the system
     :type exitstatus: Union[int, pytest.ExitCode]
     """
-    tealogger.info('pytest Session Finish')
-    tealogger.debug(f'Session: {session}')
-    tealogger.debug(f'Exit Status: {exitstatus}')
+    tealogger.info("pytest Session Finish")
+    tealogger.debug(f"Session: {session}")
+    tealogger.debug(f"Exit Status: {exitstatus}")
 
 
 def pytest_unconfigure(config: Config):
@@ -94,8 +97,8 @@ def pytest_unconfigure(config: Config):
     :param config: The pytest config object
     :type config: pytest.Config
     """
-    tealogger.info('pytest Unconfigure')
-    tealogger.debug(f'Config: {config}')
+    tealogger.info("pytest Unconfigure")
+    tealogger.debug(f"Config: {config}")
 
 
 """
@@ -115,11 +118,11 @@ def pytest_generate_tests(metafunc: Metafunc):
     :param metafunc: Objects passed to the pytest_generate_tests hook
     :type metafunc: pytest.Metafunc
     """
-    tealogger.info('pytest Generate Test')
+    tealogger.info("pytest Generate Test")
 
     # Load the test data
-    with open(Path(__file__).parent / 'DataAlpha.json', 'r', encoding='utf-8') as file:
+    with open(Path(__file__).parent / "DataAlpha.json", "r", encoding="utf-8") as file:
         data = json.load(file)
 
-    tealogger.debug(f'Meta Function: {metafunc}')
-    tealogger.debug(f'Module Name: {metafunc.module.__name__}')
+    tealogger.debug(f"Meta Function: {metafunc}")
+    tealogger.debug(f"Module Name: {metafunc.module.__name__}")
